@@ -1,5 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:payment_splitter/core/extension/context_extension.dart';
+import 'package:payment_splitter/core/extension/int_extension.dart';
 import 'package:payment_splitter/feature/calculator/repository/entity/payment_data.dart';
 import 'package:payment_splitter/feature/calculator/util/payment_data_extension.dart';
 
@@ -10,13 +12,37 @@ class PaymentPerUserGraphic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        const SizedBox(height: 32),
-        Expanded(child: BarChart(chartData())),
-      ],
+    final size = context.screenSize;
+    final screenWidth = size.width;
+    final maxElementHeight = 300;
+    final screenHeight = size.height;
+    final elementHeight = maxElementHeight < screenHeight
+        ? maxElementHeight
+        : screenHeight;
+    final double calculatedWidth = paymentData.users.length * 60 + 40;
+    final minWidth = screenWidth - 32;
+    final width = calculatedWidth < minWidth ? minWidth : calculatedWidth;
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: Colors.white,
+      ),
+      width: width,
+      height: elementHeight.toDouble(),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: SizedBox(
+          width: calculatedWidth,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              32.verticalSpace,
+              Expanded(child: BarChart(chartData())),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -30,7 +56,7 @@ class PaymentPerUserGraphic extends StatelessWidget {
   BarChartData chartData() {
     return BarChartData(
       maxY: paymentData.highestPayment.ceilToDouble(),
-      barTouchData: const BarTouchData(enabled: false),
+      barTouchData: const BarTouchData(enabled: true),
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(
@@ -41,13 +67,13 @@ class PaymentPerUserGraphic extends StatelessWidget {
           ),
         ),
         leftTitles: const AxisTitles(
-          sideTitles: SideTitles(reservedSize: 50, showTitles: true),
+          sideTitles: SideTitles(reservedSize: 32, showTitles: true),
         ),
         topTitles: const AxisTitles(sideTitles: SideTitles()),
         rightTitles: const AxisTitles(sideTitles: SideTitles()),
       ),
       borderData: FlBorderData(show: false),
-      gridData: const FlGridData(show: false),
+      gridData: const FlGridData(show: true),
       barGroups: paymentData.toBarData(),
     );
   }

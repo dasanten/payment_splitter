@@ -1,11 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:payment_splitter/core/view/example_view.dart';
-import 'package:payment_splitter/feature/calculator/component/payment_per_user_graphic.dart';
+import 'package:payment_splitter/core/extension/int_extension.dart';
 import 'package:payment_splitter/feature/calculator/repository/calculation/calculation_repo_impl.dart';
 import 'package:payment_splitter/feature/calculator/repository/entity/payment_data.dart';
 import 'package:payment_splitter/feature/calculator/repository/entity/user.dart';
+import 'package:payment_splitter/feature/calculator/view/payment_info_view.dart';
 
 class CalculatorView extends StatelessWidget {
   const CalculatorView({super.key});
@@ -13,23 +13,14 @@ class CalculatorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Calculator'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings_input_component),
-            onPressed: () {
-              Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (context) => ExampleView()));
-            },
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Expanded(child: PaymentPerUserGraphic(paymentData: buildMockData())),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: ListView(
+          children: [
+            16.verticalSpace,
+            PaymentInfoView(paymentData: buildMockData()),
+          ],
+        ),
       ),
     );
   }
@@ -38,7 +29,7 @@ class CalculatorView extends StatelessWidget {
 PaymentData buildMockData() {
   final data = PaymentData();
 
-  final users = randomUsers(5);
+  final users = randomUsers(15);
   for (final user in users) {
     data.addUser(user);
   }
