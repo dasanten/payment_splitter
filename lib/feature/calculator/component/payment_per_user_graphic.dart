@@ -56,7 +56,15 @@ class PaymentPerUserGraphic extends StatelessWidget {
   BarChartData chartData() {
     return BarChartData(
       maxY: paymentData.highestPayment.ceilToDouble(),
-      barTouchData: const BarTouchData(enabled: true),
+      barTouchData: BarTouchData(
+        enabled: true,
+        touchTooltipData: BarTouchTooltipData(
+          getTooltipItem: (group, groupIndex, rod, rodIndex) => BarTooltipItem(
+            '${rod.toY.toFixedAndCeil()}€',
+            const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:payment_splitter/core/component/button/buttons.dart';
 import 'package:payment_splitter/core/component/button/icon_button.dart';
+import 'package:payment_splitter/core/component/input/default_input.dart';
 import 'package:payment_splitter/core/component/list/separated_column.dart';
 import 'package:payment_splitter/core/extension/context_extension.dart';
 import 'package:payment_splitter/core/extension/int_extension.dart';
@@ -28,6 +29,11 @@ class ExampleView extends StatelessWidget {
                 size: 30,
                 color: context.colorScheme.onPrimary,
               ),
+            ),
+            DefaultInput(
+              suffixIcon: Icons.add,
+              label: "Default Input",
+              onSuffixIconPressed: () {},
             ),
           ],
         ),

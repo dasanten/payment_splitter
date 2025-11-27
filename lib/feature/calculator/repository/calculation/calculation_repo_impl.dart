@@ -5,6 +5,7 @@ import 'package:payment_splitter/feature/calculator/repository/entity/payment_da
 class CalculationRepoImpl implements ICalculationRepo {
   @override
   PaymentData calculatePayments(PaymentData payments) {
+    payments.resetTransactions();
     final splitter = PaymentSplitter(payments: payments)..calculate();
 
     return splitter.payments;

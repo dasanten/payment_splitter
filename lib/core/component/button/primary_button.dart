@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:payment_splitter/core/component/button/base_button.dart';
+import 'package:payment_splitter/core/extension/int_extension.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
@@ -20,10 +21,11 @@ class PrimaryButton extends StatelessWidget {
     return BaseButton(
       onPressed: onPressed,
       widget: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (prefixIcon != null) prefixIcon!,
+          if (prefixIcon != null) ...[prefixIcon!, 8.horizontalSpace],
           Text(
-            'Primary Button',
+            label,
             style: TextStyle(
               color: Theme.of(context).colorScheme.onPrimary,
               fontSize: 16.0,

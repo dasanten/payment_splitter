@@ -1,6 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:payment_splitter/core/extension/int_extension.dart';
 import 'package:payment_splitter/feature/calculator/repository/entity/user.dart';
 
 import '../repository/entity/payment_data.dart';
@@ -16,25 +15,19 @@ extension PaymentDataExtension on PaymentData {
   BarChartRodData _adjustedPaymentRod(User user) {
     var currentAmount = user.originalPayment;
     return BarChartRodData(
-      toY: user.currentPayment.toFixedAndCeil(),
+      toY: user.currentPayment,
       borderRadius: BorderRadius.circular(4),
       width: 22,
       rodStackItems: [
         if (user.currentPayment != 0)
-          BarChartRodStackItem(
-            0,
-            user.originalPayment.toFixedAndCeil(),
-            getUserColor(user.id),
-          ),
+          BarChartRodStackItem(0, user.originalPayment, getUserColor(user.id)),
         ...List.generate((user.sendMoneyTo).length, (index) {
           final currentUser = user.sendMoneyTo[index];
           final startValue = currentAmount;
           currentAmount += currentUser.amount;
           return BarChartRodStackItem(
-            // TODO(daniel): add label again if needed
-            // label: "${currentUser.amount.toStringAsFixed(2)}€",
             startValue,
-            currentAmount.toFixedAndCeil(),
+            currentAmount,
             getUserColor(currentUser.userId),
           );
         }),
