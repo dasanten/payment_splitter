@@ -3,10 +3,10 @@ import 'package:payment_splitter/core/component/list/separated_column.dart';
 import 'package:payment_splitter/core/component/list/separated_row.dart';
 import 'package:payment_splitter/core/extension/context_extension.dart';
 import 'package:payment_splitter/core/extension/int_extension.dart';
-import 'package:payment_splitter/core/view/example_view.dart';
 import 'package:payment_splitter/feature/calculator/component/payment_info_element.dart';
 import 'package:payment_splitter/feature/calculator/component/payment_per_user_graphic.dart';
 import 'package:payment_splitter/feature/calculator/repository/entity/payment_data.dart';
+import 'package:payment_splitter/feature/calculator/view/transactions_view.dart';
 
 class PaymentInfoView extends StatelessWidget {
   const PaymentInfoView({required this.paymentData, super.key});
@@ -32,9 +32,14 @@ class PaymentInfoView extends StatelessWidget {
                 ),
                 label: 'Info',
                 onInfoPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ExampleView()),
+                  showDialog(
+                    context: context,
+                    builder: (context) =>
+                        TransactionsView(paymentData: paymentData),
                   );
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(builder: (context) => ExampleView()),
+                  // );
                 },
               ),
             ),

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:equatable/equatable.dart';
+import 'package:payment_splitter/core/extension/int_extension.dart';
 import 'package:payment_splitter/feature/calculator/repository/entity/user_send_money.dart';
 import 'package:uuid/uuid.dart';
 
@@ -61,6 +62,9 @@ class User extends Equatable {
   bool isDeptReceiver(double averagePayment) {
     return paymentDifference(averagePayment) > 0;
   }
+
+  String get originalPaymentString =>
+      originalPayment.toFixedAndCeil().toString();
 
   @override
   List<Object?> get props => [
