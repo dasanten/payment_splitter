@@ -32,7 +32,7 @@ class PaymentPerUserGraphic extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: SizedBox(
-          width: calculatedWidth,
+          width: width - 24,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -75,7 +75,7 @@ class PaymentPerUserGraphic extends StatelessWidget {
           ),
         ),
         leftTitles: const AxisTitles(
-          sideTitles: SideTitles(reservedSize: 32, showTitles: true),
+          sideTitles: SideTitles(reservedSize: 40, showTitles: true),
         ),
         topTitles: const AxisTitles(sideTitles: SideTitles()),
         rightTitles: const AxisTitles(sideTitles: SideTitles()),

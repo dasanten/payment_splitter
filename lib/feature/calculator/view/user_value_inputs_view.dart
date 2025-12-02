@@ -20,7 +20,10 @@ class UserValueInputsView extends StatelessWidget {
       children: [
         ...List.generate(paymentData.users.length, (index) {
           final user = paymentData.users[index];
-          return PaymentValueInput(user: user);
+          return PaymentValueInput(
+            user: user,
+            key: Key('payment-value-input-${user.id}'),
+          );
         }),
         Center(
           child: SizedBox(

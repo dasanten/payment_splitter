@@ -13,14 +13,14 @@ class PaymentValueInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultInput(
       label: "${user.emoji} Summe:",
-      keyboardType: TextInputType.numberWithOptions(),
+      keyboardType: TextInputType.number,
       onSuffixIconPressed: () {
         context.read<PaymentSplitterCubit>().removeUser(user);
       },
-      // initialValue: user.originalPayment.toString(),
       suffixIcon: Icons.delete_forever,
       onChanged: (value) {
-        final parsedValue = double.tryParse(value) ?? 0.0;
+        final replacedCommas = value.replaceAll(',', '.');
+        final parsedValue = double.tryParse(replacedCommas) ?? 0.0;
         context.read<PaymentSplitterCubit>().userValueChanged(
           user,
           parsedValue,

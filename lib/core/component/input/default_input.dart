@@ -65,6 +65,19 @@ class DefaultInput extends StatelessWidget {
                     ],
                   ),
                   child: TextFormField(
+                    autovalidateMode: AutovalidateMode.always,
+                    validator: (value) {
+                      value ??= '0';
+                      if (value.isEmpty) {
+                        value = '0';
+                      }
+                      final replacedCommas = value.replaceAll(',', '.');
+                      final parsedValue = double.tryParse(replacedCommas);
+                      if (parsedValue == null) {
+                        return "Can't be parsed";
+                      }
+                      return null;
+                    },
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(
@@ -75,6 +88,7 @@ class DefaultInput extends StatelessWidget {
                     initialValue: initialValue,
                     keyboardType: keyboardType,
                     onFieldSubmitted: onChanged,
+                    onChanged: onChanged,
                   ),
                 ),
               ),
